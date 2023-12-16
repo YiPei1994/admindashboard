@@ -1,14 +1,25 @@
 import { createGlobalStyle } from "styled-components";
 
+// bg #352F44
+//  conainer #5C5470
+// small container #B9B4C7
+// text #FAF0E6
 const GlobalStyles = createGlobalStyle`
+:root {
+  --color-bg: #F3EEEA;
+  --color-container: #EBE3D5;
+  --color-block: #B0A695;
+  --color-text: #776B5D;
+}
+
 html {
   font-size: 62.5%;
 }
 
 body {
   font-family: "Poppins", sans-serif;
-  color: black;
-
+  color: var(--color-text);
+  background-color: var(--color-bg);
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;
@@ -26,22 +37,25 @@ select {
 button {
   cursor: pointer;
 }
-
+*{  margin: 0;
+  padding: 0;
+  box-sizing: border-box;}
 *:disabled {
   cursor: not-allowed;
+
 }
 
 select:disabled,
 input:disabled {
-  background-color: #374151;
-  color: #9ca3af;
+  background-color: var(--color-block);
+  color: var(--color-text);
 }
 
 input:focus,
 button:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid #d1d5db;
+  outline: 2px solid var(--color-block);
   outline-offset: -1px;
 }
 

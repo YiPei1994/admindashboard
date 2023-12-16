@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import Main from "./Main";
+
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 
@@ -12,6 +12,14 @@ const StyledApplayouts = styled.div`
   grid-row-gap: 5px;
   width: 100%;
   height: 100vh;
+`;
+
+const Main = styled.div`
+  grid-area: 2 / 2 / 6 / 6;
+  overflow-y: auto;
+  margin: 2rem 3rem;
+  border-radius: 2rem;
+  background-color: var(--color-container);
 `;
 function Applayouts() {
   return (
