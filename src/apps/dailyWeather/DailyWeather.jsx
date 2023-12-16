@@ -12,7 +12,7 @@ const WeatherWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem 1rem;
   min-height: 140px;
 `;
 const Wrap = styled.div`

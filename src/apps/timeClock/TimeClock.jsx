@@ -10,7 +10,7 @@ const Time = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   border-radius: 2rem;
   min-height: 140px;
   justify-content: center;
