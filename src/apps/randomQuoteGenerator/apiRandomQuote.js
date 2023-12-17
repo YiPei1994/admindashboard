@@ -1,4 +1,4 @@
-const API_URL = "https://api.quotable.io/random?maxLength=75";
+const API_URL = "https://api.quotable.io/random?maxLength=60";
 
 export async function getRandomQuote() {
   const res = await fetch(`${API_URL}`);
