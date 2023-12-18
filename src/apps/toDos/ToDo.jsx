@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../../ui/Button";
+import ButtonIcon from "../../ui/ButtonIcon";
 import { useDeleteTodo } from "./useDeleteTodo";
 import { useUpdateTodo } from "./useUpdateTodo";
 
@@ -12,7 +12,7 @@ const Todo = styled.div`
   justify-content: space-between;
   border: 1px solid var(--color-text);
   background-color: white;
-  padding: 0.8rem;
+  padding: 0.8rem 1.5rem;
   border-radius: var(--border-radius-md);
   margin-bottom: 0.5rem;
 `;
@@ -20,7 +20,7 @@ const Date = styled.span`
   width: 20%;
 `;
 const Task = styled.span`
-  width: 50%;
+  width: 70%;
 `;
 const Bns = styled.div`
   display: flex;
@@ -32,8 +32,9 @@ function ToDo({ todo }) {
   const { taskName, status, created_at, id } = todo;
   const { deletingTodo, isLoading } = useDeleteTodo();
   const { updatingTodo, isLoading: isUpdating } = useUpdateTodo();
+
   const formatDate = String(created_at)
-    .slice(0, 9)
+    .slice(0, 10)
     .split("-")
     .reverse()
     .join(".");
@@ -44,21 +45,21 @@ function ToDo({ todo }) {
       <Task>{taskName} </Task>
       {!status && (
         <Bns>
-          <Button
+          <ButtonIcon
             size="sm"
             disabled={isUpdating}
             onClick={() => updatingTodo(id)}
           >
             <HiCheck />
-          </Button>
+          </ButtonIcon>
 
-          <Button
+          <ButtonIcon
             size="sm"
             disabled={isLoading}
             onClick={() => deletingTodo(id)}
           >
             <HiMiniXMark />
-          </Button>
+          </ButtonIcon>
         </Bns>
       )}
     </Todo>
