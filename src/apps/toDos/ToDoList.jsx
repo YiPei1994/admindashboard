@@ -10,7 +10,7 @@ const Todo = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 18rem;
-  width: 80%;
+  width: 90%;
 `;
 
 const TodoWrap1 = styled.div`
@@ -36,7 +36,7 @@ function ToDoList() {
 
   if (isLoading) return <Spinner />;
   const unfinishedTodos = todos.filter((todo) => todo.status === false);
-  console.log(unfinishedTodos);
+
   const finishedTodos = todos.filter((todo) => todo.status === true);
   return (
     <Todo>

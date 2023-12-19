@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import ToDoList from "../apps/toDos/ToDoList";
 
-const Dashboard = styled.div`
-  padding: 2rem;
-`;
+const Dashboard = styled.div``;
 function DashboardContents() {
   return (
     <Dashboard>

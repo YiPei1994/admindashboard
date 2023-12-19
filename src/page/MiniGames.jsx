@@ -1,5 +1,11 @@
+import MiniGamesContents from "../pageContents/MiniGamesContents";
+
 function MiniGames() {
-  return <div>minigame</div>;
+  return (
+    <div>
+      <MiniGamesContents />
+    </div>
+  );
 }
 
 export default MiniGames;

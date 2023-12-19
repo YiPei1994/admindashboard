@@ -20,6 +20,7 @@ const Main = styled.div`
   margin: 2rem 3rem;
   border-radius: 2rem;
   background-color: var(--color-container);
+  padding: 2rem;
 `;
 function Applayouts() {
   return (

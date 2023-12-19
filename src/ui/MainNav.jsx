@@ -1,12 +1,8 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import {
-  HiOutlineCalendarDays,
-  HiOutlineCog6Tooth,
-  HiOutlineHome,
-  HiOutlineHomeModern,
-  HiOutlineUsers,
-} from "react-icons/hi2";
+import { MdVideogameAsset } from "react-icons/md";
+
+import { HiOutlineHome } from "react-icons/hi2";
 
 const NavList = styled.ul`
   display: flex;
@@ -43,14 +39,6 @@ const StyledNavLink = styled(NavLink)`
 
     transition: all 0.2s;
   }
-
-  &:hover svg,
-  &:active svg,
-  &.active:link svg,
-  &.active:visited svg {
-    background-color: var(--color-text);
-    color: var(--color-bg);
-  }
 `;
 
 function MainNav() {
@@ -63,12 +51,13 @@ function MainNav() {
             <span>Home</span>
           </StyledNavLink>
         </li>
-        {/* <li>
-          <StyledNavLink to="/bookings">
-            <HiOutlineCalendarDays />
-            <span>Bookings</span>
+        <li>
+          <StyledNavLink to="/games">
+            <MdVideogameAsset />
+            <span>MiniGames</span>
           </StyledNavLink>
         </li>
+        {/*
         <li>
           <StyledNavLink to="/cabins">
             <HiOutlineHomeModern />
