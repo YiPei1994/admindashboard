@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Card = styled.div`
-  width: 300px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -10,8 +9,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
+  height: 300px;
 `;
 
 export default Card;

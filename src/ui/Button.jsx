@@ -22,12 +22,11 @@ const size = {
 
 const variation = {
   primary: css`
-    color: var(--color-bg);
-    background-color: var(--color-text);
+    color: var(--color-sandstone-100);
+    background-color: var(--color-sandstone-500);
 
     &:hover {
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      background-color: var(--color-sandstone-700);
     }
   `,
   secondary: css`
@@ -45,6 +44,14 @@ const variation = {
 
     &:hover {
       background-color: var(--color-red-800);
+    }
+  `,
+  success: css`
+    color: var(--color-green-100);
+    background-color: var(--color-green-600);
+
+    &:hover {
+      background-color: var(--color-green-800);
     }
   `,
 };

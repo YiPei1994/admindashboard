@@ -17,7 +17,40 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-700: #374151;
   --color-grey-800: #1f2937;
   --color-grey-900: #111827;
-  
+
+  --color-blue-100: #e0f2fe;
+  --color-blue-700: #0369a1;
+  --color-green-100: #dcfce7;
+  --color-green-600: #09a709;
+  --color-green-700: #15803d;
+  --color-green-800: #106412;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-700: #a16207;
+  --color-silver-100: #e5e7eb;
+  --color-silver-700: #374151;
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-700: #4338ca;
+
+    
+  --color-sandstone-100: #e4e3dd;
+  --color-sandstone-500:#877c6b;
+  --color-sandstone-700: #5e534a;
+ 
+  --color-sandstone-800: #514842;
+
+  --color-red-100: #fee2e2;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+
+  --backdrop-color: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
+
+  --image-grayscale: 0;
+  --image-opacity: 100%;
+
   --color-bg: #F3EEEA;
   --color-container: #EBE3D5;
   --color-block: #B0A695;

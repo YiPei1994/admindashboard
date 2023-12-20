@@ -1,4 +1,4 @@
-import React from "react";
+import GuessNumber from "../gameApps/guessNumber/GuessNumber";
 import PaperRockScissors from "../gameApps/paper-rock-scissors/PaperRockScissors";
 import styled from "styled-components";
 
@@ -7,10 +7,21 @@ const Wapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `;
+const Child = styled.div`
+  width: 30%;
+  margin: 1rem;
+`;
 function MiniGamesContents() {
   return (
     <Wapper>
-      <PaperRockScissors />
+      <Child>
+        {" "}
+        <PaperRockScissors />
+      </Child>
+      <Child>
+        {" "}
+        <GuessNumber />
+      </Child>
     </Wapper>
   );
 }

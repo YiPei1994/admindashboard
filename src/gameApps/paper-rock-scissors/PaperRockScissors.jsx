@@ -6,6 +6,7 @@ import CardHeader from "../../ui/CardHeader";
 import CardBody from "../../ui/CardBody";
 import Image from "../../ui/Image";
 import Modal from "../../ui/Modal";
+import Button from "../../ui/Button";
 
 const Container = styled.div`
   text-align: center;
@@ -33,19 +34,6 @@ const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
-`;
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #2980b9;
-  }
 `;
 
 const Restart = styled.button`
@@ -105,7 +93,7 @@ function PaperRockScissors() {
         </CardHeader>
         <CardBody>
           <Modal.Open opens="open">
-            <Button>Play Game</Button>
+            <Button variation="success">Play Game</Button>
           </Modal.Open>
         </CardBody>
       </Card>

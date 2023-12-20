@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const CardHeader = styled.div`
-  height: 150px;
+  height: 200px;
   overflow: hidden;
 `;
 
