@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { MdVideogameAsset } from "react-icons/md";
+import { MdOutlineAccessibility } from "react-icons/md";
 
 import { HiOutlineHome } from "react-icons/hi2";
 
@@ -52,18 +53,19 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
+          <StyledNavLink to="/fitness">
+            <MdOutlineAccessibility />
+            <span>Fitness</span>
+          </StyledNavLink>
+        </li>
+        <li>
           <StyledNavLink to="/games">
             <MdVideogameAsset />
             <span>MiniGames</span>
           </StyledNavLink>
         </li>
+
         {/*
-        <li>
-          <StyledNavLink to="/cabins">
-            <HiOutlineHomeModern />
-            <span>Cabins</span>
-          </StyledNavLink>
-        </li>
         <li>
           <StyledNavLink to="/users">
             <HiOutlineUsers />
