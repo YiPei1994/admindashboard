@@ -28,7 +28,7 @@ function ExcerciseContextProvider({ children }) {
     };
     generatingExcercise(criteria);
   }
-  console.log(excercises);
+
   return (
     <ExcerciseContext.Provider
       value={{
@@ -38,6 +38,7 @@ function ExcerciseContextProvider({ children }) {
         chooseIntensity,
         handleGenerate,
         isLoading,
+        excercises,
       }}
     >
       {children}
