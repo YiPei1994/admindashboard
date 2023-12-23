@@ -1,7 +1,7 @@
 import supabase from "../../helpers/supabase";
 import { shuffleArray } from "../../helpers/shuffleArray";
 
-export async function generateExcercise(criteria, arrayLength) {
+export async function generateExcercise(criteria) {
   const { type, intensity } = criteria;
 
   const { data, error } = await supabase
