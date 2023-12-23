@@ -9,7 +9,7 @@ export function useGenerateExcercise() {
     isLoading,
     data: excercises,
   } = useMutation({
-    mutationFn: generateExcercise,
+    mutationFn: generateExcercise(_),
     onSuccess: () => {
       toast.success("Excercise was successfully generated!");
       queryClient.invalidateQueries({ queryKey: ["excercise"] });

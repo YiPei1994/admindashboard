@@ -1,6 +1,7 @@
 import supabase from "../../helpers/supabase";
+import { shuffleArray } from "../../helpers/shuffleArray";
 
-export async function generateExcercise(criteria) {
+export async function generateExcercise(criteria, arrayLength) {
   const { type, intensity } = criteria;
 
   const { data, error } = await supabase
@@ -13,5 +14,5 @@ export async function generateExcercise(criteria) {
     throw new Error("Couldn't fetch exercise");
   }
 
-  return data;
+  return shuffleArray(data);
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { randomInt } from "../../helpers/functions";
+import { randomInt } from "../../helpers/randomInt";
 import styled from "styled-components";
 import Card from "../../ui/Card";
 import CardHeader from "../../ui/CardHeader";

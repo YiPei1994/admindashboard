@@ -4,6 +4,9 @@ import { HiChevronDown, HiMiniStar } from "react-icons/hi2";
 import Dropdownbar from "../../ui/Dropdownbar";
 import styled from "styled-components";
 
+const StyledExercise = styled.div`
+  margin-bottom: 1rem;
+`;
 const ExerciseTable = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,6 +15,7 @@ const ExerciseTable = styled.div`
   padding: 10px;
   width: 100%;
   background-color: white;
+
   & span {
     display: block;
     margin-bottom: 5px;
@@ -27,7 +31,7 @@ function Excercise({ exercise }) {
     setDisplay((d) => !d);
   }
   return (
-    <div>
+    <StyledExercise>
       {diff === "easy" && (
         <Dropdownbar size="large" variation="success" onClick={handleDisplay}>
           {name}
@@ -57,7 +61,7 @@ function Excercise({ exercise }) {
           <span>favorite: {favorite && <HiMiniStar />} </span>
         </ExerciseTable>
       )}
-    </div>
+    </StyledExercise>
   );
 }
 
