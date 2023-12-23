@@ -16,7 +16,7 @@ const StyledApplayouts = styled.div`
 
 const Main = styled.div`
   grid-area: 2 / 2 / 6 / 6;
-  overflow-y: auto;
+  overflow-y: scroll;
   margin: 2rem 3rem;
   border-radius: 2rem;
   background-color: var(--color-container);
