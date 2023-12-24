@@ -1,7 +1,7 @@
 import supabase from "../../helpers/supabase";
 
 export async function getTodos() {
-  const { data, error } = await supabase.from("todos").select("*").range(0, 6);
+  const { data, error } = await supabase.from("todos").select("*");
 
   if (error) {
     throw new Error("couldnt fetch todos");

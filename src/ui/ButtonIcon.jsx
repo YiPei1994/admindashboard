@@ -9,6 +9,7 @@ const ButtonIcon = styled.button`
 
   &:hover {
     background-color: var(--color-grey-100);
+    color: black;
   }
 
   & svg {

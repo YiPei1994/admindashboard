@@ -1,20 +1,12 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+
 import { fetchAllExcercise } from "./apiExcercise";
 
 export function useReadExercise() {
-  const queryClient = useQueryClient();
-  const {
-    mutate: readingExercises,
-    isLoading,
-    data: readExercises,
-  } = useMutation({
-    mutationFn: fetchAllExcercise,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["excercise"] });
-    },
-    onError: (err) => toast.error(err.message),
+  const { isLoading, data: readExercises } = useQuery({
+    queryKey: ["exercise"],
+    queryFn: fetchAllExcercise,
   });
 
-  return { readingExercises, isLoading, readExercises };
+  return { isLoading, readExercises };
 }

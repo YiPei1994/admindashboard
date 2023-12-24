@@ -39,3 +39,29 @@ export async function createExercise(newExercise) {
 
   return data;
 }
+
+export async function editExercise(newData) {
+  const { id: editId, editData } = newData;
+  const { data, error } = await supabase
+    .from("exercise")
+    .update({ ...editData })
+    .eq("id", editId)
+    .single();
+
+  if (error) {
+    throw new Error("Couldn't edit exercise");
+  }
+
+  return data;
+}
+
+export async function deleteExercise(id) {
+  const { data, error } = await supabase.from("exercise").delete().eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Exercise could not be deleted");
+  }
+
+  return data;
+}

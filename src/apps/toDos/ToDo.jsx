@@ -14,19 +14,19 @@ const Todo = styled.div`
   background-color: white;
   padding: 0.8rem 1.5rem;
   border-radius: var(--border-radius-md);
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 1rem;
 `;
 const Date = styled.span`
   width: 20%;
 `;
 const Task = styled.span`
-  width: 70%;
+  width: 65%;
 `;
 const Bns = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 10%;
+  width: 15%;
 `;
 function ToDo({ todo }) {
   const { taskName, status, created_at, id } = todo;

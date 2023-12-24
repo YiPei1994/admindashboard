@@ -5,43 +5,49 @@ import Excercise from "./Excercise";
 import Heading from "../../ui/Heading";
 import Button from "../../ui/Button";
 import CreateExerciseForm from "./createExerciseForm";
-import { useState } from "react";
+import Modal from "../../ui/Modal";
+import { HiArrowPath } from "react-icons/hi2";
+import SortBy from "../../ui/SortBy";
+import { useSearchParams } from "react-router-dom";
+import { HiOutlineHandThumbUp } from "react-icons/hi2";
+import { useAddTraining } from "./useAddTraining";
+import ConfirmAccept from "../../ui/ConfirmAccept";
 
 const ExTable = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 const ExerciseTable = styled.div`
-  width: 35%;
+  width: 25%;
   margin: 0 2rem;
 `;
 const CreateTable = styled.div`
   width: 58%;
   margin: 0 2rem;
   display: flex;
-  gap: 2rem;
   flex-wrap: wrap;
-  align-items: center;
 `;
 
 const ActionWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 `;
+
 function ExcerciseTable() {
   const {
     isLoading,
     excercises,
     handleGenerate,
-    readingExercises,
     isReadingExercises,
     readExercises,
   } = useExcerciseContext();
+  const { addTraining, isLoading: isAdding } = useAddTraining();
+  const [searchParams] = useSearchParams();
 
-  const [displayCreate, setDisplayCreate] = useState();
-  const [displayAll, setDisplayAll] = useState();
   if (isLoading || isReadingExercises) return <Spinner />;
 
   const diffMap = {
@@ -53,40 +59,106 @@ function ExcerciseTable() {
   const diffNumber = diffMap[excercises?.[0]?.diff] || 0;
 
   const modifiedEx = excercises?.slice(0, diffNumber);
+  const sortBy = searchParams.get("sortBy") || "diff-asc";
 
-  function handleCreate() {
-    setDisplayCreate((d) => !d);
-    setDisplayAll(false);
-  }
-  function handleAllExcercises() {
-    setDisplayAll((d) => !d);
-    setDisplayCreate(false);
-    if (displayAll) return;
-    readingExercises();
+  const [field, direction] = sortBy.split("-");
+
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedExercise = readExercises.sort((a, b) => {
+    const valueA =
+      typeof a[field] === "string" ? a[field].toLowerCase() : a[field];
+    const valueB =
+      typeof b[field] === "string" ? b[field].toLowerCase() : b[field];
+
+    // Use localeCompare for string comparison
+    return valueA.localeCompare(valueB) * modifier;
+  });
+
+  function handleAdd(acceptedExcercises) {
+    if (!acceptedExcercises) return;
+    const newPlan = {
+      type: "",
+      exercises: [],
+      totalSets: 0,
+      totalReps: 0,
+      totalRest: 0,
+    };
+    newPlan.type = modifiedEx[0]?.type;
+    acceptedExcercises.map((ex) => newPlan.exercises.push(ex.name));
+    newPlan.totalSets = acceptedExcercises.reduce(
+      (acc, cur) => acc + cur.set,
+      0
+    );
+    newPlan.totalReps =
+      acceptedExcercises.reduce((acc, cur) => acc + cur.rep, 0) *
+      newPlan.totalSets;
+    newPlan.totalRest =
+      (acceptedExcercises.reduce((acc, cur) => acc + cur.rest, 0) *
+        newPlan.totalSets) /
+      60;
+    addTraining(newPlan);
   }
   return (
     <ExTable>
       <ExerciseTable>
-        <Heading as="h4"></Heading>
-        {modifiedEx?.map((exercise) => (
-          <Excercise key={exercise.id} exercise={exercise} />
-        ))}
-        {excercises && (
-          <Button onClick={handleGenerate}>regenerate exercises</Button>
-        )}
+        <Modal>
+          <Heading as="h4"></Heading>
+          {modifiedEx?.map((exercise) => (
+            <Excercise key={exercise.id} exercise={exercise} type="dropDown" />
+          ))}
+          {excercises && (
+            <ActionWrap>
+              <Button onClick={handleGenerate}>
+                <span> re-generate</span> <HiArrowPath />
+              </Button>
+
+              <Modal.Open opens="accept">
+                <Button variation="success">
+                  <span> Accept </span> <HiOutlineHandThumbUp />
+                </Button>
+              </Modal.Open>
+            </ActionWrap>
+          )}
+          <Modal.Window name="accept">
+            <ConfirmAccept
+              resourceName="training"
+              disabled={isAdding}
+              onConfirm={() => handleAdd(modifiedEx)}
+            ></ConfirmAccept>
+          </Modal.Window>
+        </Modal>
       </ExerciseTable>
       <CreateTable>
-        <ActionWrap>
-          {" "}
-          <Button onClick={handleAllExcercises}>Show all Exercises</Button>
-          <Button onClick={handleCreate}>Create new Exercise</Button>
-        </ActionWrap>
+        <Modal>
+          <ActionWrap>
+            <Modal.Open opens="create">
+              <Button>Create new Exercise</Button>
+            </Modal.Open>
+            <SortBy
+              options={[
+                {
+                  value: "diff-asc",
+                  label: "Sort by difficulity",
+                },
+                {
+                  value: "type-asc",
+                  label: "Sort by type",
+                },
+                {
+                  value: "name-asc",
+                  label: "Sort by name",
+                },
+              ]}
+            />
+          </ActionWrap>
+          <Modal.Window name="create">
+            <CreateExerciseForm type="modal" />
+          </Modal.Window>
+        </Modal>
 
-        {displayAll &&
-          readExercises?.map((exercise) => (
-            <Excercise key={exercise.id} exercise={exercise} />
-          ))}
-        {displayCreate && <CreateExerciseForm />}
+        {sortedExercise?.map((exercise) => (
+          <Excercise key={exercise.id} exercise={exercise} type="pill" />
+        ))}
       </CreateTable>
     </ExTable>
   );

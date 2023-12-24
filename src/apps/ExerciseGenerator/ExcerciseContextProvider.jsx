@@ -8,11 +8,7 @@ function ExcerciseContextProvider({ children }) {
   const [type, setType] = useState("");
   const [intensity, setIntensity] = useState("");
   const { generatingExcercise, isLoading, excercises } = useGenerateExcercise();
-  const {
-    readingExercises,
-    isLoading: isReadingExercises,
-    readExercises,
-  } = useReadExercise();
+  const { isLoading: isReadingExercises, readExercises } = useReadExercise();
 
   function chooseType(e) {
     const pickedType = e.target.value;
@@ -46,7 +42,7 @@ function ExcerciseContextProvider({ children }) {
         isLoading,
         excercises,
         readExercises,
-        readingExercises,
+
         isReadingExercises,
       }}
     >

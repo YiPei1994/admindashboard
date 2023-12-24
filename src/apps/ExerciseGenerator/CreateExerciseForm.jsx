@@ -4,31 +4,54 @@ import Form from "../../ui/Form";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import { useCreateExcercise } from "./useCreateExercise";
+import { useEditExercise } from "./useEditExercise";
 
-function CreateExerciseForm({ exerciseToEdit = {} }) {
-  const { register, handleSubmit, formState, reset } = useForm();
+function CreateExerciseForm({ exerciseToEdit = {}, onCloseModal }) {
   const { creatingExcercise, isLoading } = useCreateExcercise();
-  const { errors } = formState;
+  const { editingExercise, isLoading: isEditing } = useEditExercise();
 
   const { id: exerciseId, ...editValues } = exerciseToEdit;
 
   const isEditSession = Boolean(exerciseId);
 
+  const { register, handleSubmit, formState, reset } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
+  const { errors } = formState;
+
+  const isWorking = isEditing || isLoading;
   function onSubmit(data) {
-    if (!data) return;
-    creatingExcercise(data, {
-      onSuccess: () => {
-        reset();
-      },
-    });
+    if (isEditSession)
+      editingExercise(
+        { id: exerciseId, editData: { ...data } },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      creatingExcercise(
+        { ...data },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Exercise name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
-          disabled={isLoading}
+          disabled={isWorking}
           {...register("name", { required: "This is required" })}
         />
       </FormRow>
@@ -37,7 +60,7 @@ function CreateExerciseForm({ exerciseToEdit = {} }) {
         <Input
           type="text"
           id="type"
-          disabled={isLoading}
+          disabled={isWorking}
           {...register("type", { required: "This is required" })}
         />
       </FormRow>
@@ -45,7 +68,7 @@ function CreateExerciseForm({ exerciseToEdit = {} }) {
         <Input
           type="text"
           id="diff"
-          disabled={isLoading}
+          disabled={isWorking}
           {...register("diff", { required: "This is required" })}
         />
       </FormRow>
@@ -53,7 +76,8 @@ function CreateExerciseForm({ exerciseToEdit = {} }) {
         <Input
           type="number"
           id="set"
-          disabled={isLoading}
+          disabled={isWorking}
+          defaultValue={3}
           {...register("set", { required: "This is required" })}
         />
       </FormRow>
@@ -62,7 +86,8 @@ function CreateExerciseForm({ exerciseToEdit = {} }) {
         <Input
           type="number"
           id="rep"
-          disabled={isLoading}
+          disabled={isWorking}
+          defaultValue={8}
           {...register("rep", { required: "This is required" })}
         />
       </FormRow>
@@ -71,18 +96,26 @@ function CreateExerciseForm({ exerciseToEdit = {} }) {
         <Input
           type="number"
           id="rest"
-          disabled={isLoading}
-          defaultValue={60}
+          disabled={isWorking}
+          defaultValue={120}
           {...register("rest", { required: "This is required" })}
         />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset" disabled={isLoading}>
+        <Button
+          variation="secondary"
+          onClick={onCloseModal}
+          type="reset"
+          disabled={isWorking}
+        >
           Cancel
         </Button>
-        <Button disabled={isLoading}>Add Exercise</Button>
+        <Button disabled={isWorking}>
+          {" "}
+          {isEditSession ? "Edit" : "Add"} Exercise
+        </Button>
       </FormRow>
     </Form>
   );

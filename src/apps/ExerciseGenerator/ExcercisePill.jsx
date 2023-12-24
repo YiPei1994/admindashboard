@@ -22,20 +22,11 @@ const size = {
 
 const variation = {
   primary: css`
-    color: var(--color-sandstone-100);
-    background-color: var(--color-sandstone-500);
+    color: var(--color-blue-100);
+    background-color: var(--color-blue-600);
 
     &:hover {
-      background-color: var(--color-sandstone-700);
-    }
-  `,
-  secondary: css`
-    color: var(--color-grey-600);
-    background: var(--color-grey-0);
-    border: 1px solid var(--color-grey-200);
-
-    &:hover {
-      background-color: var(--color-grey-50);
+      background-color: var(--color-blue-700);
     }
   `,
   danger: css`
@@ -51,12 +42,12 @@ const variation = {
     background-color: var(--color-green-600);
 
     &:hover {
-      background-color: var(--color-green-800);
+      background-color: var(--color-green-700);
     }
   `,
 };
 
-const Button = styled.button`
+const ExcercisePill = styled.div`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
@@ -64,14 +55,13 @@ const Button = styled.button`
   ${(props) => variation[props.variation]}
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex: auto;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
   & span {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 `;
 
-Button.defaultProps = {
-  size: "medium",
-  variation: "primary",
-};
-
-export default Button;
+export default ExcercisePill;
