@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import MiniGames from "./page/MiniGames";
 import Fitness from "./page/Fitness";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import TrainingHistory from "./page/TrainingHistory";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ function App() {
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="fitness" element={<Fitness />} />
+              <Route path="training" element={<TrainingHistory />} />
               <Route path="games" element={<MiniGames />} />
             </Route>
             <Route path="login" element={<Login />} />

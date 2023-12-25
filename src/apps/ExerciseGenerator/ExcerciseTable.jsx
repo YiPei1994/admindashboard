@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ExerciseOperations from "./ExerciseOperations";
 import CreateTraining from "./CreateTraining";
+import Menus from "../../ui/Menus";
 
 const ExTable = styled.div`
   display: flex;
@@ -10,6 +11,9 @@ const ExTable = styled.div`
 const ExerciseTable = styled.div`
   width: 25%;
   margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 const CreateTable = styled.div`
   width: 58%;
@@ -25,7 +29,9 @@ function ExcerciseTable() {
         <CreateTraining />
       </ExerciseTable>
       <CreateTable>
-        <ExerciseOperations />
+        <Menus>
+          <ExerciseOperations />
+        </Menus>
       </CreateTable>
     </ExTable>
   );

@@ -7,6 +7,7 @@ import Button from "../../ui/Button";
 import Spinner from "../../ui/Spinner";
 import { useExcerciseContext } from "./ExcerciseContextProvider";
 import styled from "styled-components";
+import { useState } from "react";
 
 const ActionWrap = styled.div`
   width: 100%;
@@ -15,9 +16,10 @@ const ActionWrap = styled.div`
   align-items: flex-start;
   margin-bottom: 1rem;
 `;
+
 function ExerciseOperations() {
   const { isReadingExercises, readExercises } = useExcerciseContext();
-
+  const [displayAll, setDisplayAll] = useState(false);
   const [searchParams] = useSearchParams();
 
   if (isReadingExercises) return <Spinner />;
@@ -37,6 +39,9 @@ function ExerciseOperations() {
   return (
     <Modal>
       <ActionWrap>
+        <Button onClick={() => setDisplayAll((d) => !d)}>
+          Display all Exercises
+        </Button>
         <Modal.Open opens="create">
           <Button>Create new Exercise</Button>
         </Modal.Open>
@@ -60,9 +65,11 @@ function ExerciseOperations() {
       <Modal.Window name="create">
         <CreateExerciseForm type="modal" />
       </Modal.Window>
-      {sortedExercise?.map((exercise) => (
-        <Excercise key={exercise.id} exercise={exercise} type="pill" />
-      ))}
+
+      {displayAll &&
+        sortedExercise?.map((exercise) => (
+          <Excercise key={exercise.id} exercise={exercise} type="pill" />
+        ))}
     </Modal>
   );
 }

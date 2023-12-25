@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { HiChevronDown } from "react-icons/hi2";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import Dropdownbar from "../../ui/Dropdownbar";
 import styled from "styled-components";
 import ExcercisePill from "./ExcercisePill";
-
-import ButtonIcon from "../../ui/ButtonIcon";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { HiOutlineXMark } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import CreateExerciseForm from "./createExerciseForm";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteExercise } from "./useDeleteExercise";
-
 import { HiOutlineDocumentDuplicate } from "react-icons/hi2";
 import { useCreateExcercise } from "./useCreateExercise";
+import Menus from "../../ui/Menus";
 
 const StyledExercise = styled.div`
   margin-bottom: 1rem;
@@ -31,11 +29,12 @@ const ExerciseTable = styled.div`
   & span {
     display: block;
     margin-bottom: 5px;
+    font-size: 1.6rem;
   }
 `;
 
 function Excercise({ exercise, type: formtype }) {
-  const { id, type, name, diff, set, rep, rest } = exercise;
+  const { id: exerciseId, type, name, diff, set, rep, rest } = exercise;
   const [display, setDisplay] = useState(false);
   const { deletingExercise, isLoading } = useDeleteExercise();
   const { creatingExcercise } = useCreateExcercise();
@@ -77,44 +76,50 @@ function Excercise({ exercise, type: formtype }) {
       rest,
     });
   }
+
   return (
     <StyledExercise>
       {diff && formtype === "dropDown" && (
         <Dropdownbar {...getDropdownbarProps()}>
           <span>{name}</span>
 
-          <HiChevronDown />
+          {!display ? <HiChevronDown /> : <HiChevronUp />}
         </Dropdownbar>
       )}
       {diff && formtype === "pill" && (
         <ExcercisePill {...getPillsProps()}>
           <span>{name}</span>
           <Modal>
-            <div>
-              <ButtonIcon onClick={duplicateCabin}>
-                <HiOutlineDocumentDuplicate />
-              </ButtonIcon>
-              <Modal.Open opens="edit">
-                <ButtonIcon>
-                  <HiOutlinePencilSquare />
-                </ButtonIcon>
-              </Modal.Open>
-              <Modal.Open opens="delete">
-                <ButtonIcon>
-                  <HiOutlineXMark />
-                </ButtonIcon>
-              </Modal.Open>
-            </div>
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName={name}
-                disabled={isLoading}
-                onConfirm={() => deletingExercise(id)}
-              />
-            </Modal.Window>
-            <Modal.Window name="edit">
-              <CreateExerciseForm exerciseToEdit={exercise} type="modal" />
-            </Modal.Window>
+            <Menus.Menu>
+              <Menus.Toggle id={exerciseId} />
+              <Menus.List id={exerciseId}>
+                <Menus.Button
+                  icon={<HiOutlineDocumentDuplicate />}
+                  onClick={duplicateCabin}
+                >
+                  Duplicate
+                </Menus.Button>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiOutlinePencilSquare />}>
+                    Edit
+                  </Menus.Button>
+                </Modal.Open>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiOutlineXMark />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
+
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName={name}
+                  disabled={isLoading}
+                  onConfirm={() => deletingExercise(exerciseId)}
+                />
+              </Modal.Window>
+              <Modal.Window name="edit">
+                <CreateExerciseForm exerciseToEdit={exercise} type="modal" />
+              </Modal.Window>
+            </Menus.Menu>
           </Modal>
         </ExcercisePill>
       )}

@@ -10,7 +10,7 @@ const Todo = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 18rem;
-  width: 90%;
+  width: 100%;
 `;
 
 const TodoWrap1 = styled.div`

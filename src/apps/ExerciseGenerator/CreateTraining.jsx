@@ -1,12 +1,11 @@
 import { HiArrowPath, HiOutlineHandThumbUp } from "react-icons/hi2";
 import Button from "../../ui/Button";
-import Heading from "../../ui/Heading";
 import Modal from "../../ui/Modal";
 import Excercise from "./Excercise";
 import ConfirmAccept from "../../ui/ConfirmAccept";
 import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
-import { useAddTraining } from "./useAddTraining";
+import { useAddTraining } from "../../feature/trainingTacking/useAddTraining";
 import { useExcerciseContext } from "./ExcerciseContextProvider";
 import styled from "styled-components";
 
@@ -16,6 +15,7 @@ const ActionWrap = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   margin-bottom: 1rem;
+  margin-top: 5rem;
 `;
 function CreateTraining() {
   const { isLoading, excercises, handleGenerate } = useExcerciseContext();
@@ -58,14 +58,15 @@ function CreateTraining() {
         newPlan.totalSets) /
       60;
     addTraining(newPlan);
-    navigate("/");
+    navigate("/training");
   }
   return (
     <Modal>
-      <Heading as="h4"></Heading>
-      {modifiedEx?.map((exercise) => (
-        <Excercise key={exercise.id} exercise={exercise} type="dropDown" />
-      ))}
+      <div>
+        {modifiedEx?.map((exercise) => (
+          <Excercise key={exercise.id} exercise={exercise} type="dropDown" />
+        ))}
+      </div>
       {excercises && (
         <ActionWrap>
           <Button onClick={handleGenerate}>
