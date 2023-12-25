@@ -3,6 +3,8 @@ import TimeClock from "../apps/timeClock/TimeClock";
 import Heading from "../ui/Heading";
 import DailyWeather from "../apps/dailyWeather/DailyWeather";
 import styled from "styled-components";
+import LogOut from "../feature/authentication/LogOut";
+import { useCurrentUser } from "../feature/authentication/useCurrentUser";
 
 const Header = styled.div`
   display: flex;
@@ -25,14 +27,19 @@ const Wrapper = styled.div`
 `;
 
 function HeaderContents() {
+  const { user } = useCurrentUser();
+
   return (
     <Header>
       <Wrapper>
-        <Heading as="h1">Welcome back user</Heading>
+        <Heading as="h1">Welcome back {user.email}</Heading>
         <RandomQuoteGenerator />
       </Wrapper>
       <TimeClock />
       <DailyWeather />
+      <div>
+        <LogOut />
+      </div>
     </Header>
   );
 }

@@ -24,10 +24,7 @@ function ConfirmAccept({ resourceName, onConfirm, disabled, onCloseModal }) {
   return (
     <StyledConfirmAccept>
       <Heading as="h3">Accept {resourceName}</Heading>
-      <p>
-        Are you sure you want to Accept this {resourceName} permanently? This
-        action cannot be undone.
-      </p>
+      <p>Are you sure you want to Accept this {resourceName}?</p>
 
       <div>
         <Button

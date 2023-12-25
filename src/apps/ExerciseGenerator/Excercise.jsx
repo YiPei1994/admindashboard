@@ -67,7 +67,7 @@ function Excercise({ exercise, type: formtype }) {
     return { size: "large", variation };
   };
 
-  function duplicateCabin(excercise) {
+  function duplicateCabin() {
     creatingExcercise({
       name: `Copy of ${name}`,
       type,
@@ -121,7 +121,6 @@ function Excercise({ exercise, type: formtype }) {
 
       {display && (
         <ExerciseTable>
-          <span>name: {name} </span>
           <span>sets: {set} </span>
           <span>reps: {rep} </span>
           <span>resting time: {rest}s </span>

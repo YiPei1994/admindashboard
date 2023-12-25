@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import MiniGames from "./page/MiniGames";
 import Fitness from "./page/Fitness";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +26,13 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route element={<Applayouts />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Applayouts />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="fitness" element={<Fitness />} />
