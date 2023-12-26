@@ -54,7 +54,6 @@ const FlexWrap = styled.div`
 function Header() {
   const { user, isAuthenticated } = useCurrentUser();
   const navigate = useNavigate();
-  console.log(user);
   return (
     <StyledHeader>
       <Wrapper>

@@ -5,6 +5,7 @@ import { useUpdateTodo } from "./useUpdateTodo";
 
 import { HiCheck } from "react-icons/hi2";
 import { HiMiniXMark } from "react-icons/hi2";
+import { useCurrentUser } from "../../feature/authentication/useCurrentUser";
 
 const Todo = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ function ToDo({ todo }) {
   const { taskName, status, created_at, id } = todo;
   const { deletingTodo, isLoading } = useDeleteTodo();
   const { updatingTodo, isLoading: isUpdating } = useUpdateTodo();
-
+  const { isAuthenticated } = useCurrentUser();
   const formatDate = String(created_at)
     .slice(0, 10)
     .split("-")
@@ -47,7 +48,7 @@ function ToDo({ todo }) {
         <Bns>
           <ButtonIcon
             size="sm"
-            disabled={isUpdating}
+            disabled={isUpdating || !isAuthenticated}
             onClick={() => updatingTodo(id)}
           >
             <HiCheck />
@@ -55,7 +56,7 @@ function ToDo({ todo }) {
 
           <ButtonIcon
             size="sm"
-            disabled={isLoading}
+            disabled={isUpdating || !isAuthenticated}
             onClick={() => deletingTodo(id)}
           >
             <HiMiniXMark />
