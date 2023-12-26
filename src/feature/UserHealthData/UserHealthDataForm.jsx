@@ -20,13 +20,21 @@ const ComputeWrap = styled.div`
     left: 200px;
   }
 `;
+
+const Select = styled.select`
+  border: 1px solid var(--color-text);
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 0.8rem 1.2rem;
+  width: 200px;
+`;
 function UserHealthDataForm() {
   const { register, handleSubmit, reset, formState, getValues } = useForm();
 
   const { errors } = formState;
   const {
     user: {
-      id,
       email,
       user_metadata: { fullName },
     },
@@ -53,7 +61,14 @@ function UserHealthDataForm() {
     if (!gender) return;
 
     if (gender === "male") {
-      setCalories(66 + 13.7 * weight + 5 * height - 6.8 * age + times * 100);
+      setCalories(
+        Math.floor(66 + 13.7 * weight + 5 * height - 6.8 * age + times * 100)
+      );
+    }
+    if (gender === "female") {
+      setCalories(
+        Math.floor(655 + 9.6 * weight + 1.8 * height - 4.7 * age + times * 100)
+      );
     }
   }
   function onSubmit(data) {
@@ -62,16 +77,6 @@ function UserHealthDataForm() {
   }
   return (
     <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="User Id" error={errors?.user_id?.message}>
-        <Input
-          type="text"
-          id="user_id"
-          defaultValue={id}
-          readOnly
-          {...register("user_id")}
-        />
-      </FormRow>
-
       <FormRow label="User name" error={errors?.user_name?.message}>
         <Input
           type="text"
@@ -92,11 +97,13 @@ function UserHealthDataForm() {
         />
       </FormRow>
       <FormRow label="User gender" error={errors?.user_gender?.message}>
-        <Input
-          type="text"
+        <Select
           id="user_gender"
           {...register("user_gender", { required: "This is required" })}
-        />
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </Select>
       </FormRow>
       <FormRow label="User age" error={errors?.user_age?.message}>
         <Input
@@ -153,13 +160,13 @@ function UserHealthDataForm() {
       <ComputeWrap>
         <FormRow
           label="User calories per day"
-          error={errors?.daily_calories?.message}
+          error={errors?.calories?.message}
         >
           <Input
             type="number"
-            id="daily_calories"
+            id="calories"
             value={calories}
-            {...register("daily_calories", { required: "This is required" })}
+            {...register("calories", { required: "This is required" })}
           />
         </FormRow>
         <ButtonIcon onClick={handleCalories}>
