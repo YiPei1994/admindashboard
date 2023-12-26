@@ -12,6 +12,7 @@ import { useDeleteExercise } from "./useDeleteExercise";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi2";
 import { useCreateExcercise } from "./useCreateExercise";
 import Menus from "../../ui/Menus";
+import { useCurrentUser } from "../../feature/authentication/useCurrentUser";
 
 const StyledExercise = styled.div`
   margin-bottom: 1rem;
@@ -38,6 +39,7 @@ function Excercise({ exercise, type: formtype }) {
   const [display, setDisplay] = useState(false);
   const { deletingExercise, isLoading } = useDeleteExercise();
   const { creatingExcercise } = useCreateExcercise();
+  const { isAuthenticated } = useCurrentUser();
   const handleDisplay = () => {
     setDisplay((d) => !d);
   };
@@ -105,14 +107,19 @@ function Excercise({ exercise, type: formtype }) {
                   </Menus.Button>
                 </Modal.Open>
                 <Modal.Open opens="delete">
-                  <Menus.Button icon={<HiOutlineXMark />}>Delete</Menus.Button>
+                  <Menus.Button
+                    icon={<HiOutlineXMark />}
+                    disabled={isAuthenticated}
+                  >
+                    Delete
+                  </Menus.Button>
                 </Modal.Open>
               </Menus.List>
 
               <Modal.Window name="delete">
                 <ConfirmDelete
                   resourceName={name}
-                  disabled={isLoading}
+                  disabled={isLoading || !isAuthenticated}
                   onConfirm={() => deletingExercise(exerciseId)}
                 />
               </Modal.Window>

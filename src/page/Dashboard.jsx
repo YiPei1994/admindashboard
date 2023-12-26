@@ -1,7 +1,10 @@
-import DashboardContents from "../pageContents/DashboardContents";
-
+import ToDoList from "../apps/toDos/ToDoList";
 function Dashboard() {
-  return <DashboardContents />;
+  return (
+    <>
+      <ToDoList />
+    </>
+  );
 }
 
 export default Dashboard;

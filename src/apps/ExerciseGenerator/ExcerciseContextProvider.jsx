@@ -23,12 +23,8 @@ function ExcerciseContextProvider({ children }) {
   }
 
   function handleGenerate() {
-    if (!type && !intensity) return;
-    const criteria = {
-      type,
-      intensity,
-    };
-    generatingExcercise(criteria);
+    if (!type || !intensity) return;
+    generatingExcercise();
   }
 
   return (

@@ -2,15 +2,15 @@ import styled from "styled-components";
 import Button from "../../ui/Button";
 import Heading from "../../ui/Heading";
 import { useExcerciseContext } from "./ExcerciseContextProvider";
-import ButtonIcon from "../../ui/ButtonIcon";
+
 import { HiChevronDoubleRight } from "react-icons/hi2";
 
 const OptionWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
-  margin: 2rem auto;
+  width: 90%;
+  margin: 3rem auto 5rem auto;
 `;
 
 const OptionGroup = styled.div`
@@ -19,6 +19,8 @@ const OptionGroup = styled.div`
   justify-content: space-between;
   flex-direction: column;
   gap: 1rem;
+  width: auto;
+  width: 35%;
 `;
 const ButtonGroup = styled.div`
   display: flex;
@@ -33,6 +35,9 @@ function ExcerciseOptions() {
       <OptionGroup>
         <Heading as="h3">What muscle group to train today?</Heading>
         <ButtonGroup>
+          <Button onClick={chooseType} value="all">
+            All
+          </Button>
           <Button onClick={chooseType} value="chest">
             Chest
           </Button>
@@ -44,15 +49,18 @@ function ExcerciseOptions() {
           </Button>
         </ButtonGroup>
       </OptionGroup>
-      <OptionGroup>
+      <div>
         <p>{type} </p>
-        <ButtonIcon>
-          <HiChevronDoubleRight />
-        </ButtonIcon>
-      </OptionGroup>
+
+        <HiChevronDoubleRight />
+      </div>
+
       <OptionGroup>
         <Heading as="h3">How intese are you feeling?</Heading>
         <ButtonGroup>
+          <Button onClick={chooseIntensity} value="mix">
+            Mix
+          </Button>
           <Button onClick={chooseIntensity} value="easy">
             Easy
           </Button>
@@ -64,17 +72,14 @@ function ExcerciseOptions() {
           </Button>
         </ButtonGroup>
       </OptionGroup>
-      <OptionGroup>
+      <div>
         <p>{intensity} </p>
-        <ButtonIcon>
-          <HiChevronDoubleRight />
-        </ButtonIcon>
-      </OptionGroup>
-      <OptionGroup>
-        <Button size="large" onClick={handleGenerate}>
-          Generate
-        </Button>
-      </OptionGroup>
+
+        <HiChevronDoubleRight />
+      </div>
+      <Button size="large" onClick={handleGenerate}>
+        Generate
+      </Button>
     </OptionWrapper>
   );
 }

@@ -1,11 +1,7 @@
-import FitnessContents from "../pageContents/FitnessContents";
+import ExcerciseGenerator from "../apps/ExerciseGenerator/ExcerciseGenerator";
 
 function Fitness() {
-  return (
-    <div>
-      <FitnessContents />
-    </div>
-  );
+  return <ExcerciseGenerator />;
 }
 
 export default Fitness;

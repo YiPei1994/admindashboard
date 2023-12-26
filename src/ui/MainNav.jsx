@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { MdVideogameAsset } from "react-icons/md";
 import { MdOutlineAccessibility } from "react-icons/md";
 
-import { HiOutlineHome, HiOutlineUsers } from "react-icons/hi2";
+import {
+  HiOutlineCog6Tooth,
+  HiOutlineHome,
+  HiOutlineUsers,
+} from "react-icons/hi2";
 
 const NavList = styled.ul`
   display: flex;
@@ -72,12 +76,11 @@ function MainNav() {
           </StyledNavLink>
         </li>
 
-        {/*   <li>
-          <StyledNavLink to="/settings">
-            <HiOutlineCog6Tooth /> <span>Settings</span>
+        <li>
+          <StyledNavLink to="/user">
+            <HiOutlineCog6Tooth /> <span>User Settings</span>
           </StyledNavLink>
-        </li> 
-         */}
+        </li>
       </NavList>
     </nav>
   );

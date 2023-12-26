@@ -18,22 +18,50 @@ const ActionWrap = styled.div`
   margin-top: 5rem;
 `;
 function CreateTraining() {
-  const { isLoading, excercises, handleGenerate } = useExcerciseContext();
+  const { isLoading, excercises, handleGenerate, intensity, type } =
+    useExcerciseContext();
   const { addTraining, isLoading: isAdding } = useAddTraining();
 
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
+  let filteredType;
+
+  // Filter by type
+  if (type === "all") filteredType = excercises;
+  else filteredType = excercises?.filter((ex) => ex.type === type);
+
+  console.log(filteredType);
+
+  // Filter by difficulty
+  let filteredDiff;
+  if (intensity === "mix") {
+    const uniqueExerciseNames = new Set();
+    filteredDiff = filteredType?.filter((ex) => {
+      // Check if the exercise name is already encountered
+      if (!uniqueExerciseNames.has(ex.name)) {
+        // If not encountered, add it to the set and include it in the result
+        uniqueExerciseNames.add(ex.name);
+        return true;
+      }
+      // If encountered, exclude it from the result
+      return false;
+    });
+  } else {
+    filteredDiff = filteredType?.filter((ex) => ex.diff === intensity);
+  }
 
   const diffMap = {
     easy: 3,
     medium: 4,
     hard: 5,
+    mix: 4,
   };
 
-  const diffNumber = diffMap[excercises?.[0]?.diff] || 0;
+  const diffNumber = diffMap[intensity] || 0;
 
-  const modifiedEx = excercises?.slice(0, diffNumber);
+  const modifiedEx = filteredDiff?.slice(0, diffNumber);
+  console.log(modifiedEx);
 
   function handleAdd(acceptedExcercises) {
     if (!acceptedExcercises) return;

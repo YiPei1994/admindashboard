@@ -11,6 +11,7 @@ import MiniGames from "./page/MiniGames";
 import Fitness from "./page/Fitness";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import TrainingHistory from "./page/TrainingHistory";
+import User from "./page/User";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,18 +28,20 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <Applayouts />
-                </ProtectedRoute>
-              }
-            >
+            <Route element={<Applayouts />}>
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="fitness" element={<Fitness />} />
               <Route path="training" element={<TrainingHistory />} />
               <Route path="games" element={<MiniGames />} />
+              <Route
+                path="user"
+                element={
+                  <ProtectedRoute>
+                    <User />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />

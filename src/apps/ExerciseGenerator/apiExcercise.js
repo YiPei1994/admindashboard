@@ -11,14 +11,8 @@ export async function fetchAllExcercise() {
   return data;
 }
 
-export async function generateExcercise(criteria) {
-  const { type, intensity } = criteria;
-
-  const { data, error } = await supabase
-    .from("exercise")
-    .select("*")
-    .eq("type", type)
-    .eq("diff", intensity);
+export async function generateExcercise() {
+  const { data, error } = await supabase.from("exercise").select("*");
 
   if (error) {
     throw new Error("Couldn't fetch exercise");
