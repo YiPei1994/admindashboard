@@ -71,6 +71,7 @@ function CreateTraining() {
       totalSets: 0,
       totalReps: 0,
       totalRest: 0,
+      usedCalories: 0,
     };
     newPlan.type = modifiedEx[0]?.type;
     acceptedExcercises.map((ex) => newPlan.exercises.push(ex.name));
@@ -85,6 +86,8 @@ function CreateTraining() {
       (acceptedExcercises.reduce((acc, cur) => acc + cur.rest, 0) *
         newPlan.totalSets) /
       60;
+    newPlan.usedCalories = Math.floor(Number(newPlan.totalReps / 2.12));
+    console.log(newPlan);
     addTraining(newPlan);
     navigate("/training");
   }

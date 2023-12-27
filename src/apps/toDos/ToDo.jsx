@@ -31,7 +31,7 @@ const Bns = styled.div`
 `;
 function ToDo({ todo }) {
   const { taskName, status, created_at, id } = todo;
-  const { deletingTodo, isLoading } = useDeleteTodo();
+  const { deletingTodo } = useDeleteTodo();
   const { updatingTodo, isLoading: isUpdating } = useUpdateTodo();
   const { isAuthenticated } = useCurrentUser();
   const formatDate = String(created_at)

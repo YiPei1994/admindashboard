@@ -9,8 +9,9 @@ const Todo = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  height: 18rem;
+  height: 100%;
   width: 100%;
+  max-height: 600px;
 `;
 
 const TodoWrap1 = styled.div`
