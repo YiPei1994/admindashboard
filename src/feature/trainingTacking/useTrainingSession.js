@@ -9,14 +9,14 @@ export function useTraningSession() {
 
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
-  const { data: trainingHistory, isLoading } = useQuery({
+  const { data, isLoading = {} } = useQuery({
     queryKey: ["trainingSession", page],
-    queryFn: fetchTrainingHistory,
+    queryFn: () => fetchTrainingHistory({ page }),
   });
 
-  /*   // prefetch
+  // prefetch
   const trainingHistory = data?.data;
-  const count = data?.length;
+  const count = data?.count;
   const pageCount = Math.ceil(count / PAGE_SIZE);
   if (page < pageCount)
     queryClient.prefetchQuery({
@@ -29,7 +29,5 @@ export function useTraningSession() {
       queryFn: () => fetchTrainingHistory({ page: page - 1 }),
     });
 
-  console.log(trainingHistory); */
-
-  return { trainingHistory, isLoading };
+  return { trainingHistory, isLoading, count };
 }

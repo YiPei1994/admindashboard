@@ -17,7 +17,6 @@ function TrainingRow({ training }) {
     .reverse()
     .join("/");
 
-  console.log(exercises.join(","));
   return (
     <Table.Row>
       <span>{formatedDate} </span>

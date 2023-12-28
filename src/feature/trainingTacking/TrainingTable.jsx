@@ -27,9 +27,9 @@ function TrainingTable() {
         )}
       />
 
-      {/*  <Table.Footer>
+      <Table.Footer>
         <Pagination count={count} />
-      </Table.Footer> */}
+      </Table.Footer>
     </Table>
   );
 }
