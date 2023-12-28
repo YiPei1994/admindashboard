@@ -86,7 +86,7 @@ function CreateTraining() {
       (acceptedExcercises.reduce((acc, cur) => acc + cur.rest, 0) *
         newPlan.totalSets) /
       60;
-    newPlan.usedCalories = Math.floor(Number(newPlan.totalReps / 2.12));
+    newPlan.usedCalories = Math.floor(Number(newPlan.totalReps / 1.88));
     console.log(newPlan);
     addTraining(newPlan);
     navigate("/training");

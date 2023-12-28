@@ -9,7 +9,7 @@ const Todo = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 50%;
   width: 100%;
   max-height: 600px;
 `;

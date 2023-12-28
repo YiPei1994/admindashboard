@@ -56,7 +56,7 @@ function ToDo({ todo }) {
 
           <ButtonIcon
             size="sm"
-            disabled={isUpdating || !isAuthenticated}
+            disabled={isUpdating}
             onClick={() => deletingTodo(id)}
           >
             <HiMiniXMark />

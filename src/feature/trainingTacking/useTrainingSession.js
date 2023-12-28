@@ -13,9 +13,8 @@ export function useTraningSession() {
     queryKey: ["trainingSession", page],
     queryFn: () => fetchTrainingHistory({ page }),
   });
-
   // prefetch
-  const trainingHistory = data?.data;
+  const trainingHistory = data?.data.sort((a, b) => b.id - a.id);
   const count = data?.count;
   const pageCount = Math.ceil(count / PAGE_SIZE);
   if (page < pageCount)

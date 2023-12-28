@@ -1,15 +1,16 @@
-import { useForm } from "react-hook-form";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import Button from "../../ui/Button";
-import { useCurrentUser } from "../authentication/useCurrentUser";
+
 import ButtonIcon from "../../ui/ButtonIcon";
 
 import { useState } from "react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import styled from "styled-components";
-import { useAddUserData } from "./useAddUserData";
+
+import { useData } from "./useData";
+import Spinner from "../../ui/Spinner";
+import { useUpdateData } from "./useUpdateData";
 
 const ComputeWrap = styled.div`
   position: relative;
@@ -30,127 +31,120 @@ const Select = styled.select`
   width: 200px;
 `;
 function UserHealthDataForm() {
-  const { register, handleSubmit, reset, formState, getValues } = useForm();
-
-  const { errors } = formState;
-  const {
-    user: {
-      email,
-      user_metadata: { fullName },
-    },
-  } = useCurrentUser();
-  const { addData, isLoading } = useAddUserData();
+  const { usingData = {} } = useData();
+  const { updateData, isLoading } = useUpdateData();
   const [bmi, setBmi] = useState(0);
   const [calories, setCalories] = useState(0);
 
+  if (isLoading) return <Spinner />;
+
+  const {
+    user_age,
+    user_BMR,
+    user_gender,
+    user_height,
+    user_weight,
+    user_calories,
+    time_per_week,
+  } = usingData;
+
+  function handleUpdate(e, field) {
+    const value = e.target.value;
+
+    if (!value) return;
+    updateData({ [field]: value });
+  }
   function handleBmi(e) {
     e.preventDefault();
-    const height = getValues().user_height / 100;
-    const weight = getValues().user_weight;
+    const height = user_height / 100;
+    const weight = user_weight;
     if (!height || !weight) return;
     setBmi(Math.round(weight / (height * height)));
   }
 
   function handleCalories(e) {
     e.preventDefault();
-    const height = getValues().user_height;
-    const weight = getValues().user_weight;
-    const gender = getValues().user_gender;
-    const age = getValues().user_age;
-    const times = getValues().time_per_week;
+    const height = user_height;
+    const weight = user_weight;
+    const gender = user_gender;
+    const age = user_age;
+    const times = time_per_week;
     if (!gender) return;
 
     if (gender === "male") {
       setCalories(
-        Math.floor(66 + 13.7 * weight + 5 * height - 6.8 * age + times * 100)
+        Math.floor(
+          88.362 + 13.4 * weight + 4.8 * height - 5.8 * age + times * 100
+        )
       );
     }
     if (gender === "female") {
       setCalories(
-        Math.floor(655 + 9.6 * weight + 1.8 * height - 4.7 * age + times * 100)
+        Math.floor(447 + 9.2 * weight + 3.8 * height - 4.7 * age + times * 100)
       );
     }
   }
-  function onSubmit(data) {
-    console.log(data);
-    addData(data);
-  }
-  return (
-    <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="User name" error={errors?.user_name?.message}>
-        <Input
-          type="text"
-          id="user_name"
-          defaultValue={fullName}
-          readOnly
-          {...register("user_name")}
-        />
-      </FormRow>
 
-      <FormRow label="User email" error={errors?.user_email?.message}>
-        <Input
-          type="text"
-          id="user_email"
-          defaultValue={email}
-          readOnly
-          {...register("user_email")}
-        />
-      </FormRow>
-      <FormRow label="User gender" error={errors?.user_gender?.message}>
+  return (
+    <Form type="regular">
+      <FormRow label="User gender">
         <Select
           id="user_gender"
-          {...register("user_gender", { required: "This is required" })}
+          defaultValue={user_gender}
+          disabled={isLoading}
+          onBlur={(e) => handleUpdate(e, "user_gender")}
         >
           <option value="male">Male</option>
           <option value="female">Female</option>
         </Select>
       </FormRow>
-      <FormRow label="User age" error={errors?.user_age?.message}>
+      <FormRow label="User age">
         <Input
           type="number"
           id="user_age"
-          {...register("user_age", { required: "This is required" })}
+          defaultValue={user_age}
+          disabled={isLoading}
+          onBlur={(e) => handleUpdate(e, "user_age")}
         />
       </FormRow>
-      <FormRow
-        label="User height in metric"
-        error={errors?.user_height?.message}
-      >
+      <FormRow label="User height in metric">
         <Input
           type="number"
           id="user_height"
-          {...register("user_height", { required: "This is required" })}
+          defaultValue={user_height}
+          disabled={isLoading}
+          onBlur={(e) => handleUpdate(e, "user_height")}
         />
       </FormRow>
-      <FormRow
-        label="User weight in kilos"
-        error={errors?.user_weight?.message}
-      >
+      <FormRow label="User weight in kilos">
         <Input
           type="number"
           id="user_weight"
-          {...register("user_weight", { required: "This is required" })}
+          defaultValue={user_weight}
+          disabled={isLoading}
+          onBlur={(e) => handleUpdate(e, "user_weight")}
         />
       </FormRow>
-      <FormRow
-        label="Exercise per week"
-        error={errors?.times_per_week?.message}
-      >
+      <FormRow label="Exercise per week">
         <Input
           type="number"
           id="time_per_week"
-          {...register("time_per_week", { required: "This is required" })}
+          defaultValue={time_per_week}
+          disabled={isLoading}
+          onBlur={(e) => handleUpdate(e, "time_per_week")}
         />
       </FormRow>
 
       <ComputeWrap>
         {" "}
-        <FormRow label="User BMI" error={errors?.user_BMI?.message}>
+        <FormRow label="User BMR">
           <Input
             type="number"
-            id="user_BMI"
+            id="user_BMR"
+            defaultValue={user_BMR}
             value={bmi}
-            {...register("user_BMI", { required: "This is required" })}
+            disabled={isLoading}
+            onBlur={(e) => handleUpdate(e, "user_BMR")}
           />
         </FormRow>
         <ButtonIcon onClick={handleBmi}>
@@ -158,31 +152,20 @@ function UserHealthDataForm() {
         </ButtonIcon>
       </ComputeWrap>
       <ComputeWrap>
-        <FormRow
-          label="User calories per day"
-          error={errors?.calories?.message}
-        >
+        <FormRow label="User calories per day">
           <Input
             type="number"
             id="calories"
+            defaultValue={user_calories}
             value={calories}
-            {...register("calories", { required: "This is required" })}
+            disabled={isLoading}
+            onBlur={(e) => handleUpdate(e, "user_calories")}
           />
         </FormRow>
         <ButtonIcon onClick={handleCalories}>
           <HiOutlineCog6Tooth />
         </ButtonIcon>
       </ComputeWrap>
-
-      <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset" disabled={isLoading}>
-          Reset
-        </Button>
-        <Button type="submit" disabled={isLoading}>
-          Save Data
-        </Button>
-      </FormRow>
     </Form>
   );
 }

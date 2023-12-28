@@ -25,7 +25,7 @@ export async function addNewTraining(newPlan) {
     .select();
 
   if (error) {
-    throw new Error("couldnt add new training");
+    throw new Error("couldnt add new training or log in");
   }
 
   return data;
