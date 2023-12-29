@@ -31,8 +31,6 @@ function CreateTraining() {
   if (type === "all") filteredType = excercises;
   else filteredType = excercises?.filter((ex) => ex.type === type);
 
-  console.log(filteredType);
-
   // Filter by difficulty
   let filteredDiff;
   if (intensity === "mix") {
@@ -61,7 +59,6 @@ function CreateTraining() {
   const diffNumber = diffMap[intensity] || 0;
 
   const modifiedEx = filteredDiff?.slice(0, diffNumber);
-  console.log(modifiedEx);
 
   function handleAdd(acceptedExcercises) {
     if (!acceptedExcercises) return;
@@ -87,7 +84,7 @@ function CreateTraining() {
         newPlan.totalSets) /
       60;
     newPlan.usedCalories = Math.floor(Number(newPlan.totalReps / 1.88));
-    console.log(newPlan);
+
     addTraining(newPlan);
     navigate("/training");
   }

@@ -59,7 +59,7 @@ function MainNav() {
         <li>
           <StyledNavLink to="/fitness">
             <MdOutlineAccessibility />
-            <span>Fitness</span>
+            <span>Indoor Fitness</span>
           </StyledNavLink>
         </li>
 
@@ -67,6 +67,12 @@ function MainNav() {
           <StyledNavLink to="/training">
             <HiOutlineUsers />
             <span>Training Session</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/outdoor">
+            <MdOutlineAccessibility />
+            <span>Outdoor Fitness</span>
           </StyledNavLink>
         </li>
         <li>

@@ -12,6 +12,7 @@ import Fitness from "./page/Fitness";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import TrainingHistory from "./page/TrainingHistory";
 import User from "./page/User";
+import OutdoorMap from "./page/OutdoorMap";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +34,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="fitness" element={<Fitness />} />
               <Route path="training" element={<TrainingHistory />} />
+              <Route path="outdoor" element={<OutdoorMap />} />
               <Route path="games" element={<MiniGames />} />
               <Route
                 path="user"
