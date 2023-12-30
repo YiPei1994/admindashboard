@@ -59,7 +59,7 @@ function TrainingForm() {
 
   function onSubmit(data) {
     if (!data) return;
-    console.log(data);
+
     creatingWorkout(data);
     reset();
     setDisplay(false);
@@ -125,22 +125,8 @@ function TrainingForm() {
           <HiOutlineCog6Tooth />
         </ButtonIcon>
       </ComputeWrap>
-      <Input
-        id="lat"
-        type="hidden"
-        readOnly
-        defaultValue={lat}
-        value={lat}
-        {...register("lat")}
-      />
-      <Input
-        id="lng"
-        type="hidden"
-        readOnly
-        defaultValue={lng}
-        value={lng}
-        {...register("lng")}
-      />
+      <Input id="lat" type="hidden" value={lat} {...register("lat")} />
+      <Input id="lng" type="hidden" value={lng} {...register("lng")} />
       <FormRowSmall>
         <Button
           variation="secondary"

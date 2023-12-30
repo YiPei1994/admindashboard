@@ -6,6 +6,8 @@ import { useOutdoorTraining } from "./OutdoorTrainingContext";
 import { useGeolocation } from "../dailyWeather/usePosition";
 import { useSearchParams } from "react-router-dom";
 import { useOutdoorData } from "./useOutdoorData";
+import DataHistory from "./DataHistory";
+import { useForm } from "react-hook-form";
 
 const MapWrapper = styled.div`
   width: 65%;
@@ -16,6 +18,7 @@ function OutdoorTrainingMap() {
   const { setDisplay, mapPosition } = useOutdoorTraining();
   const [searchParams, setSerachParams] = useSearchParams();
   const { usingData, isLoading: loadingData } = useOutdoorData();
+  const { reset } = useForm();
   if (isLoading || !position || !position.lat || !position.lng || loadingData) {
     return null;
   }
@@ -25,7 +28,7 @@ function OutdoorTrainingMap() {
   const HandleMapClick = () => {
     const map = useMapEvents({
       click: (e) => {
-        setDisplay(false), map.locate();
+        setDisplay((d) => !d), map.locate();
         map.setView(e.latlng);
         let lat = e.latlng.lat;
         searchParams.set("lat", lat);
