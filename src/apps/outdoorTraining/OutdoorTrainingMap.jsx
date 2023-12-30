@@ -6,8 +6,7 @@ import { useOutdoorTraining } from "./OutdoorTrainingContext";
 import { useGeolocation } from "../dailyWeather/usePosition";
 import { useSearchParams } from "react-router-dom";
 import { useOutdoorData } from "./useOutdoorData";
-import DataHistory from "./DataHistory";
-import { useForm } from "react-hook-form";
+import Heading from "../../ui/Heading";
 
 const MapWrapper = styled.div`
   width: 65%;
@@ -18,11 +17,11 @@ function OutdoorTrainingMap() {
   const { setDisplay, mapPosition } = useOutdoorTraining();
   const [searchParams, setSerachParams] = useSearchParams();
   const { usingData, isLoading: loadingData } = useOutdoorData();
-  const { reset } = useForm();
+
   if (isLoading || !position || !position.lat || !position.lng || loadingData) {
     return null;
   }
-  console.log(mapPosition);
+
   const myPosition = [position?.lat, position?.lng];
 
   const HandleMapClick = () => {
@@ -65,9 +64,17 @@ function OutdoorTrainingMap() {
         />
         {usingData.map((data, i) => (
           <Marker key={i} position={[data.lat, data.lng]}>
-            <Popup>
-              {data.type === "cycling" && "🚴"}
-              {data.type === "running" && "🏃"} {data.type}{" "}
+            <Popup
+              maxWidth="250"
+              minWidth="100"
+              autoClose={false}
+              closeOnClick={false}
+            >
+              <Heading as="h3">
+                {" "}
+                {data.type === "cycling" && "🚴"}
+                {data.type === "running" && "🏃"} {data.type}{" "}
+              </Heading>
             </Popup>
           </Marker>
         ))}

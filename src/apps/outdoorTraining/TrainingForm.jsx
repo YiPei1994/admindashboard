@@ -42,9 +42,11 @@ function TrainingForm() {
 
   function handleCalCandance(e) {
     e.preventDefault();
-    const metr = getValues("distance") * 1000;
+    const type = getValues("type");
+    const km = getValues("distance");
     const min = getValues("duration");
-    setValue("cadance", Math.floor(metr / min));
+    if (type === "running") setValue("cadance", Math.floor(min / km));
+    if (type === "cycling") setValue("cadance", Math.floor(km / (min / 60)));
   }
 
   function handleCalCalories(e) {
@@ -103,7 +105,7 @@ function TrainingForm() {
           <Input
             id="cadance"
             type="number"
-            placeholder="metr/min"
+            placeholder="pace/speed"
             {...register("cadance")}
           />
         </FormRowSmall>
