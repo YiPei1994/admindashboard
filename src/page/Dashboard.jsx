@@ -1,8 +1,15 @@
+import CaloriesChart from "../apps/caloriesChart/CaloriesChart";
 import ToDoList from "../apps/toDos/ToDoList";
 function Dashboard() {
   return (
     <>
-      <ToDoList />
+      <div>
+        <ToDoList />
+      </div>
+      <div>
+        {" "}
+        <CaloriesChart />
+      </div>
     </>
   );
 }

@@ -7,11 +7,9 @@ import { useTodos } from "./useTodos";
 const Todo = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
   height: 50%;
   width: 100%;
-  max-height: 600px;
 `;
 
 const TodoWrap1 = styled.div`
@@ -22,6 +20,7 @@ const TodoWrap1 = styled.div`
   height: 100%;
   border: 1px solid var(--color-text);
   border-radius: var(--border-radius-lg);
+  max-height: 20rem;
 `;
 const TodoWrap2 = styled.div`
   padding: 1rem;
@@ -31,6 +30,7 @@ const TodoWrap2 = styled.div`
   height: 100%;
   border: 1px solid var(--color-text);
   border-radius: var(--border-radius-lg);
+  max-height: 20rem;
 `;
 function ToDoList() {
   const { todos, isLoading } = useTodos();
