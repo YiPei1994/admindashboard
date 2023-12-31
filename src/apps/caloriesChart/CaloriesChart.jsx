@@ -26,8 +26,11 @@ const Chartwrapper = styled.div`
   border-radius: var(--border-radius-md);
   margin: 1rem auto;
   padding: 2rem;
-  flex-direction: column;
+
   gap: 1rem;
+  & div {
+    width: 50%;
+  }
 `;
 function CaloriesChart() {
   const { trainingHistory, isLoading } = useTraningSession();
@@ -59,35 +62,63 @@ function CaloriesChart() {
       label: Number(formattedDate),
     };
   });
-  const combined = [...updatedTrainingHistory, ...updatedWorkoutHistory];
-  console.log(combined);
+
   return (
     <Chartwrapper>
-      <Heading as="h3">Burned calories</Heading>
-      <ResponsiveContainer width="100%" height={250}>
-        <AreaChart
-          data={combined}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          {" "}
-          <XAxis dataKey="label" />
-          <YAxis unit=" Cal" />
-          <CartesianGrid strokeDasharray="4" />
-          <Tooltip />
-          <Area
-            dataKey="usedCalories"
-            type="monotone"
-            stroke="#C2410C"
-            fill="#FCD34D"
-          />
-          <Area
-            dataKey="calories"
-            type="monotone"
-            stroke="#de6c3f"
-            fill="#d8bd62"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+      <div>
+        <Heading as="h3">Indoor training</Heading>
+        <ResponsiveContainer width="100%" height={250}>
+          <AreaChart
+            data={updatedTrainingHistory}
+            margin={{ top: 10, right: 30, left: 20, bottom: 10 }}
+          >
+            {" "}
+            <XAxis dataKey="label" />
+            <YAxis unit=" Cal" />
+            <CartesianGrid strokeDasharray="4" />
+            <Tooltip />
+            <Area
+              dataKey="usedCalories"
+              type="monotone"
+              stroke="#C2410C"
+              fill="#FCD34D"
+            />
+            <Area
+              dataKey="totalReps"
+              type="monotone"
+              stroke="#de6c3f"
+              fill="#d8bd62"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+      <div>
+        <Heading as="h3">Outdoor workouts</Heading>
+        <ResponsiveContainer width="100%" height={250}>
+          <AreaChart
+            data={updatedWorkoutHistory}
+            margin={{ top: 10, right: 30, left: 20, bottom: 10 }}
+          >
+            {" "}
+            <XAxis dataKey="label" />
+            <YAxis unit=" Cal" />
+            <CartesianGrid strokeDasharray="4" />
+            <Tooltip />
+            <Area
+              dataKey="calories"
+              type="monotone"
+              stroke="#C2410C"
+              fill="#FCD34D"
+            />
+            <Area
+              dataKey="duration"
+              type="monotone"
+              stroke="#de6c3f"
+              fill="#d8bd62"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </Chartwrapper>
   );
 }
