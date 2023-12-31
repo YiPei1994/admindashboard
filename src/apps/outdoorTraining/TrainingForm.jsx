@@ -51,12 +51,13 @@ function TrainingForm() {
 
   function handleCalCalories(e) {
     e.preventDefault();
-    const hour = getValues("duration") / 60;
     const speed = getValues("cadance");
     const type = getValues("type");
+    const min = getValues("duration");
     if (type === "running")
-      setValue("calories", Math.floor(hour * speed * 1.88));
-    if (type === "cycling") setValue("calories", Math.floor(speed * 1.1));
+      setValue("calories", Math.floor(speed * min * 1.28));
+    if (type === "cycling")
+      setValue("calories", Math.floor(((speed * min) / 2) * 1.18));
   }
 
   function onSubmit(data) {
@@ -101,7 +102,7 @@ function TrainingForm() {
       </FormRowSmall>
       <ComputeWrap>
         <FormRowSmall label="Cadence">
-          <label>Cadence: </label>
+          <label>Speed/Pace: </label>
           <Input
             id="cadance"
             type="number"

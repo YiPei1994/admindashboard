@@ -6,7 +6,7 @@ import { useDeleteWorkout } from "./useDeleteWorkout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 
-const History = styled.button`
+const History = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -18,7 +18,7 @@ const History = styled.button`
   width: 100%;
 `;
 
-const P = styled.p`
+const P = styled.div`
   width: 100%;
   text-align: center;
   display: flex;
